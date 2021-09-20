@@ -10,8 +10,8 @@ int main(){
     // TO DO: Define rotation matrix M
     // TO DO: M * P
 
-    const float PI = 3.1415926f;
-    const float DEG2RED = PI / 180.0f;
+    constexpr float PI = 3.1415926f;
+    constexpr float DEG2RED = PI / 180.0f;
 
     std::cout << "Hw0：P_prime" << std::endl;
     float rad = 45.0f * DEG2RED;

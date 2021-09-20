@@ -1,0 +1,5 @@
+-xc++
+-I
+/usr/include/opencv4/
+-Ofast
+-std=c++17
