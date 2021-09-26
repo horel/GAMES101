@@ -38,5 +38,23 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 ![](./doc/images/Hw0.png)
 
-## 作业1
+## 作业1 旋转与投影
 
+![](./doc/images/Hw1.png)
+
+## 作业2 Triangles and Z-buffering
+
+### Normal
+
+![](./doc/images/Hw2_normal.png)
+
+### MSAA 4X
+
+![](./doc/images/Hw2_MSAA_4X.png)
+
+> 可以看到开启MSAA 4X后，锯齿感降低很多。同时增加以下部分，消除了交界处的黑边bug：
+>
+> - depth_buf_msaa2x2: depth buffer for MSAA
+> - mix_pixel(): added for MSAA
+
+## 作业3 Pipeline and Shading
