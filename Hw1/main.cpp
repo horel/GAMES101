@@ -1,10 +1,13 @@
 #include "Triangle.hpp"
 #include "rasterizer.hpp"
+#include <cmath>
 #include <eigen3/Eigen/Eigen>
+#include <eigen3/Eigen/src/Core/Matrix.h>
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
 constexpr double MY_PI = 3.1415926;
+constexpr double DEG2RAD = MY_PI / 180.0;
 
 Eigen::Matrix4f get_view_matrix(Eigen::Vector3f eye_pos)
 {
@@ -27,7 +30,39 @@ Eigen::Matrix4f get_model_matrix(float rotation_angle)
     // Create the model matrix for rotating the triangle around the Z axis.
     // Then return it.
 
+    const float angle = rotation_angle * (float)DEG2RAD;
+    model << cos(angle), -sin(angle), 0, 0,
+             sin(angle), cos(angle),  0, 0,
+             0,          0,           1, 0,
+             0,          0,           0, 1;
+
     return model;
+}
+
+// 提高项
+// 应用罗德里格斯旋转公式
+Eigen::Matrix4f get_rotation(Vector3f axis, float angle) {
+    // 旋转的角度
+    float rotation_angle = angle * DEG2RAD;
+    // 最终的罗德里格斯矩阵
+    Eigen::Matrix4f rotation_matrix;
+
+    Eigen::Matrix3f I = Eigen::Matrix3f::Identity();    // 单位矩阵
+    Eigen::Matrix3f R;  // 三维的罗德里格斯矩阵
+    Eigen::Matrix3f N;  // axis旋转轴化作矩阵
+
+    N << 0,         -axis[2], axis[1],
+         axis[2],   0,        -axis[0],
+         -axis[1],  axis[0],  0;
+
+    R = cos(rotation_angle) * I + (1 - cos(rotation_angle)) * axis * axis.transpose() + sin(rotation_angle) * N;
+
+    rotation_matrix << R(0, 0), R(0, 1), R(0, 2), 0,
+                       R(1, 0), R(1, 1), R(1, 2), 0,
+                       R(2, 0), R(2, 1), R(2, 2), 0,
+                       0,       0,       0,       1;
+
+    return rotation_matrix;
 }
 
 Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,
@@ -40,6 +75,15 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,
     // TODO: Implement this function
     // Create the projection matrix for the given parameters.
     // Then return it.
+
+    // zNear 和 zFar 都是负值
+    const float top = tan(eye_fov / 2.0f) * -(zNear);
+    const float right = aspect_ratio * top;
+
+    projection << zNear/right, 0,         0,                         0,
+                  0,           zNear/top, 0,                         0,
+                  0,           0,         (zNear+zFar)/(zNear-zFar), (2*zNear*zFar)/(zFar-zNear),
+                  0,           0,         1,                         0;
 
     return projection;
 }
@@ -75,7 +119,9 @@ int main(int argc, const char** argv)
     if (command_line) {
         r.clear(rst::Buffers::Color | rst::Buffers::Depth);
 
-        r.set_model(get_model_matrix(angle));
+        Eigen::Vector3f axis(0, 0, 1);
+        r.set_model(get_rotation(axis, angle));
+        /* r.set_model(get_model_matrix(angle)); */
         r.set_view(get_view_matrix(eye_pos));
         r.set_projection(get_projection_matrix(45, 1, 0.1, 50));
 
@@ -91,7 +137,9 @@ int main(int argc, const char** argv)
     while (key != 27) {
         r.clear(rst::Buffers::Color | rst::Buffers::Depth);
 
-        r.set_model(get_model_matrix(angle));
+        Eigen::Vector3f axis(0, 0, 1);
+        r.set_model(get_rotation(axis, angle));
+        /* r.set_model(get_model_matrix(angle)); */
         r.set_view(get_view_matrix(eye_pos));
         r.set_projection(get_projection_matrix(45, 1, 0.1, 50));
 
