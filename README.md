@@ -12,7 +12,7 @@ Table of Contents
       * [Basic](#Basic)
       * [MSAA 4X](#msaa-4x)
    * [作业3 Pipeline and Shading](#作业3-pipeline-and-shading)
-      * [basic](#normal)
+      * [Basic](#normal)
       * [Bonus](#bonus1-other-models)
 
 # 参考作业实现
