@@ -5,6 +5,7 @@
 Table of Contents
 =================
 
+<!--ts-->
   * [作业目录](# Table of Contents)
   * [参考作业实现](# 参考作业实现)
         * [作业0](# 作业0 环境配置)
@@ -15,6 +16,7 @@ Table of Contents
         * [作业3](# 作业3 Pipeline and Shading)
               * [基础要求实现](# normal)
               * [Bonus](# Bonus1 Other models)
+<!--te-->
 
 # 参考作业实现
 
