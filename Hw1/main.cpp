@@ -77,7 +77,7 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,
     // Then return it.
 
     // zNear 和 zFar 都是负值
-    const float top = tan(eye_fov / 2.0f) * -(zNear);
+    const float top = tan(DEG2RAD * (eye_fov / 2.0f)) * -(zNear);
     const float right = aspect_ratio * top;
 
     projection << zNear/right, 0,         0,                         0,

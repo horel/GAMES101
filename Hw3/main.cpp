@@ -1,3 +1,5 @@
+#include <algorithm>
+#include <cmath>
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
@@ -52,7 +54,7 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float z
     // TODO: Use the same projection matrix from the previous assignments
     Eigen::Matrix4f projection;
 
-    const float top = tan(eye_fov / 2.0f) * -(zNear);
+    const float top = tan(DEG2RAD * (eye_fov / 2.0f)) * -(zNear);
     const float right = aspect_ratio * top;
 
     projection << zNear/right, 0,         0,                         0,
@@ -85,7 +87,7 @@ static Eigen::Vector3f reflect(const Eigen::Vector3f& vec, const Eigen::Vector3f
 struct light
 {
     Eigen::Vector3f position;
-    Eigen::Vector3f intensity;
+    Eigen::Vector3f intensity; // 强度
 };
 
 Eigen::Vector3f texture_fragment_shader(const fragment_shader_payload& payload)
@@ -134,25 +136,37 @@ Eigen::Vector3f phong_fragment_shader(const fragment_shader_payload& payload)
     Eigen::Vector3f kd = payload.color;
     Eigen::Vector3f ks = Eigen::Vector3f(0.7937, 0.7937, 0.7937);
 
-    auto l1 = light{{20, 20, 20}, {500, 500, 500}};
+    auto l1 = light{{20, 20, 20}, {500, 500, 500}};     // 位置和强度
     auto l2 = light{{-20, 20, 0}, {500, 500, 500}};
 
     std::vector<light> lights = {l1, l2};
-    Eigen::Vector3f amb_light_intensity{10, 10, 10};
+    Eigen::Vector3f amb_light_intensity{10, 10, 10};    // 环境光强度
     Eigen::Vector3f eye_pos{0, 0, 10};
 
     float p = 150;
 
     Eigen::Vector3f color = payload.color;
-    Eigen::Vector3f point = payload.view_pos;
+    Eigen::Vector3f point = payload.view_pos;   // view_pos是没有进行透视投影中空间物体上的点
     Eigen::Vector3f normal = payload.normal;
 
     Eigen::Vector3f result_color = {0, 0, 0};
     for (auto& light : lights)
     {
         // TODO: For each light source in the code, calculate what the *ambient*, *diffuse*, and *specular*
-        // components are. Then, accumulate that result on the *result_color* object.
+        // 指向灯光的向量 和 看向着色点的向量
+        auto light_vec = light.position - point;
+        auto view_vec = eye_pos - point;
+        auto light_vec_norm = light_vec.normalized();
+        auto view_vec_norm = view_vec.normalized();
+        // r^2 半径(距离)平方
+        auto radius2 = light_vec.dot(light_vec);
 
+        // cwiseProduct是对应点相乘
+        result_color += ka.cwiseProduct(amb_light_intensity);
+        result_color += kd.cwiseProduct(light.intensity) / radius2 * std::max(0.0f, light_vec_norm.dot(normal));
+        auto h_vec_norm = (view_vec_norm + light_vec_norm).normalized();
+        result_color += ks.cwiseProduct(light.intensity) / radius2 * std::pow(std::max(0.0f, normal.dot(h_vec_norm)), p);
+        // components are. Then, accumulate that result on the *result_color* object.
     }
 
     return result_color * 255.f;
