@@ -209,26 +209,59 @@ Eigen::Vector3f displacement_fragment_shader(const fragment_shader_payload& payl
 
     float kh = 0.2, kn = 0.1;
 
-    // TODO: Implement displacement mapping here
+    // TODO: Implement bump mapping here
     // Let n = normal = (x, y, z)
+    Eigen::Vector3f n = normal;
     // Vector t = (x*y/sqrt(x*x+z*z),sqrt(x*x+z*z),z*y/sqrt(x*x+z*z))
+    Eigen::Vector3f t;
+    t << n.x() * n.y() / std::sqrt(n.x() * n.x() + n.z() * n.z()),
+         std::sqrt(n.x() * n.x() + n.z() * n.z()),
+         n.z() * n.y() / std::sqrt(n.x() * n.x() + n.z() * n.z());
     // Vector b = n cross product t
-    // Matrix TBN = [t b n]
-    // dU = kh * kn * (h(u+1/w,v)-h(u,v))
-    // dV = kh * kn * (h(u,v+1/h)-h(u,v))
-    // Vector ln = (-dU, -dV, 1)
-    // Position p = p + kn * n * h(u,v)
-    // Normal n = normalize(TBN * ln)
+    Eigen::Vector3f b = n.cross(t);
+    // Matrix TBN = [t b n]     TBN是本地坐标转到世界坐标用的矩阵
+    Eigen::Matrix3f TBN;
+    TBN << t, b, n;
 
+    // (u, v)坐标   纹理的width和height
+    float u = payload.tex_coords(0);
+    float v = payload.tex_coords(1);
+    float w = payload.texture->width;
+    float h = payload.texture->height;
+
+    // dU 和 dV 是在u,v坐标下的切线方向的梯度，在本地坐标下，水平移动1, (1, dU, dV)就是切线向量
+    // dU = kh * kn * (h(u+1/w,v)-h(u,v))
+    float dU = kh * kn * (payload.texture->getColor(u + 1.0f/w, v).norm() - payload.texture->getColor(u, v).norm());   // norm()返回的是而二范数，例如(3,4)->5
+    // dV = kh * kn * (h(u,v+1/h)-h(u,v))
+    float dV = kh * kn * (payload.texture->getColor(u, v + 1.0f/h).norm() - payload.texture->getColor(u, v).norm());
+    // 将切线方向向量旋转90度，得到法线向量ln
+    // Vector ln = (-dU, -dV, 1)
+    Eigen::Vector3f ln(-dU, -dV, 1.0f);
+    // 再从本地坐标转换到世界坐标
+    // Normal n = normalize(TBN * ln)
+    normal = (TBN * ln).normalized();
+    // 点还要位移
+    point += kn * n * payload.texture->getColor(u, v).norm();
 
     Eigen::Vector3f result_color = {0, 0, 0};
 
     for (auto& light : lights)
     {
         // TODO: For each light source in the code, calculate what the *ambient*, *diffuse*, and *specular*
+        // 指向灯光的向量 和 看向着色点的向量
+        auto light_vec = light.position - point;
+        auto view_vec = eye_pos - point;
+        auto light_vec_norm = light_vec.normalized();
+        auto view_vec_norm = view_vec.normalized();
+        // r^2 半径(距离)平方
+        auto radius2 = light_vec.dot(light_vec);
+
+        // cwiseProduct是对应点相乘
+        result_color += ka.cwiseProduct(amb_light_intensity);
+        result_color += kd.cwiseProduct(light.intensity) / radius2 * std::max(0.0f, light_vec_norm.dot(normal));
+        auto h_vec_norm = (view_vec_norm + light_vec_norm).normalized();
+        result_color += ks.cwiseProduct(light.intensity) / radius2 * std::pow(std::max(0.0f, h_vec_norm.dot(normal)), p);
         // components are. Then, accumulate that result on the *result_color* object.
-
-
     }
 
     return result_color * 255.f;
@@ -260,13 +293,35 @@ Eigen::Vector3f bump_fragment_shader(const fragment_shader_payload& payload)
 
     // TODO: Implement bump mapping here
     // Let n = normal = (x, y, z)
+    Eigen::Vector3f n = normal;
     // Vector t = (x*y/sqrt(x*x+z*z),sqrt(x*x+z*z),z*y/sqrt(x*x+z*z))
+    Eigen::Vector3f t;
+    t << n.x() * n.y() / std::sqrt(n.x() * n.x() + n.z() * n.z()),
+         std::sqrt(n.x() * n.x() + n.z() * n.z()),
+         n.z() * n.y() / std::sqrt(n.x() * n.x() + n.z() * n.z());
     // Vector b = n cross product t
-    // Matrix TBN = [t b n]
+    Eigen::Vector3f b = n.cross(t);
+    // Matrix TBN = [t b n]     TBN是本地坐标转到世界坐标用的矩阵
+    Eigen::Matrix3f TBN;
+    TBN << t, b, n;
+
+    // (u, v)坐标   纹理的width和height
+    float u = payload.tex_coords(0);
+    float v = payload.tex_coords(1);
+    float w = payload.texture->width;
+    float h = payload.texture->height;
+
+    // dU 和 dV 是在u,v坐标下的切线方向的梯度，在本地坐标下，水平移动1, (1, dU, dV)就是切线向量
     // dU = kh * kn * (h(u+1/w,v)-h(u,v))
+    float dU = kh * kn * (payload.texture->getColor(u + 1.0f/w, v).norm() - payload.texture->getColor(u, v).norm());   // norm()返回的是而二范数，例如(3,4)->5
     // dV = kh * kn * (h(u,v+1/h)-h(u,v))
+    float dV = kh * kn * (payload.texture->getColor(u, v + 1.0f/h).norm() - payload.texture->getColor(u, v).norm());
+    // 将切线方向向量旋转90度，得到法线向量ln
     // Vector ln = (-dU, -dV, 1)
+    Eigen::Vector3f ln(-dU, -dV, 1.0f);
+    // 再从本地坐标转换到世界坐标
     // Normal n = normalize(TBN * ln)
+    normal = (TBN * ln).normalized();
 
 
     Eigen::Vector3f result_color = {0, 0, 0};

@@ -70,3 +70,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ### texture
 
 ![](doc/images/Hw3_texture.png)
+
+### bump
+
+![](doc/images/Hw3_bump.png)
+
+### displacement
+
+![](doc/images/Hw3_displacement.png)
