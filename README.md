@@ -68,3 +68,5 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ![](doc/images/Hw3_phong.png)
 
 ### texture
+
+![](doc/images/Hw3_texture.png)

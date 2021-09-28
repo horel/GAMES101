@@ -96,7 +96,7 @@ Eigen::Vector3f texture_fragment_shader(const fragment_shader_payload& payload)
     if (payload.texture)
     {
         // TODO: Get the texture value at the texture coordinates of the current fragment
-
+        return_color = payload.texture->getColor(payload.tex_coords(0), payload.tex_coords(1));
     }
     Eigen::Vector3f texture_color;
     texture_color << return_color.x(), return_color.y(), return_color.z();
@@ -123,6 +123,19 @@ Eigen::Vector3f texture_fragment_shader(const fragment_shader_payload& payload)
     for (auto& light : lights)
     {
         // TODO: For each light source in the code, calculate what the *ambient*, *diffuse*, and *specular*
+        // 指向灯光的向量 和 看向着色点的向量
+        auto light_vec = light.position - point;
+        auto view_vec = eye_pos - point;
+        auto light_vec_norm = light_vec.normalized();
+        auto view_vec_norm = view_vec.normalized();
+        // r^2 半径(距离)平方
+        auto radius2 = light_vec.dot(light_vec);
+
+        // cwiseProduct是对应点相乘
+        result_color += ka.cwiseProduct(amb_light_intensity);
+        result_color += kd.cwiseProduct(light.intensity) / radius2 * std::max(0.0f, light_vec_norm.dot(normal));
+        auto h_vec_norm = (view_vec_norm + light_vec_norm).normalized();
+        result_color += ks.cwiseProduct(light.intensity) / radius2 * std::pow(std::max(0.0f, normal.dot(h_vec_norm)), p);
         // components are. Then, accumulate that result on the *result_color* object.
 
     }
