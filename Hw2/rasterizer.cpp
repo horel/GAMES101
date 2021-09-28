@@ -144,8 +144,8 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
 
         aabb_minX = std::min(P.x(), aabb_minX);
         aabb_maxX = std::max(P.x(), aabb_maxX);
-        aabb_minY = std::min(P.x(), aabb_minY);
-        aabb_maxY = std::max(P.x(), aabb_maxY);
+        aabb_minY = std::min(P.y(), aabb_minY);
+        aabb_maxY = std::max(P.y(), aabb_maxY);
     }
 
     // 提高题 MSAA 4X
