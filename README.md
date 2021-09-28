@@ -78,3 +78,31 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ### displacement
 
 ![](doc/images/Hw3_displacement.png)
+
+### Bonus1 Other models
+
+> 详细问题请查看[CheckList](Hw3/README.md)
+
+- bunny
+
+![](Hw3/images/bunny_normal.png)
+
+- Crate
+
+![](Hw3/images/crate_texture.png)
+
+- cube
+
+![](Hw3/images/cube_texture.png)
+
+- rock
+
+![](Hw3/images/rock_texture.png)
+
+- Mobius[彩蛋]
+
+![](Hw3/images/Mobius.png)
+
+> 梅比乌斯。贴图有很多张，框架里texture应该只能读一张，就只渲染了normal
+
+### Bonus2 Bilinear
