@@ -58,3 +58,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 > - mix_pixel(): added for MSAA
 
 ## 作业3 Pipeline and Shading
+
+### normal
+
+![](doc/images/Hw3_normal.png)
+
+### phong
+
+![](doc/images/Hw3_phong.png)
+
+### texture
