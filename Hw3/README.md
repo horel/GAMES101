@@ -11,7 +11,7 @@ Checklist
 
 > 需要给一个颜色图片，将hmap复制到Hw3/models/bunny文件夹内
 >
-> 摄像机离太近了，可以将eye_pos设置为(0, 0, 1.5)
+> 摄像机离太远了，可以将eye_pos设置为(0, 0, 1.5)
 
 - crate texture
 

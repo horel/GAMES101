@@ -1,6 +1,23 @@
-# GAMES101作业
+# GAMES101 ![](doc/labels/图形学-GAMES101-blue.svg) ![](doc/labels/现代计算机图形学入门-闫令琪-orange.svg) ![](doc/labels/linux.svg)
 仅供参考！如果你真的热爱图形学，希望可以自己先尝试写作业！
 直接看代码是收获不到知识的！
+
+Table of Contents
+=================
+
+  * [作业目录](# Table of Contents)
+  * [参考作业实现](# 参考作业实现)
+        * [作业0](# 作业0 环境配置)
+        * [作业1](# 作业2 Triangles and Z-buffering)
+        * [作业2](# 作业3 Pipeline and Shading)
+              * [Normal](# Normal)
+              * [MSAA 4X](# MSAA 4X)
+        * [作业3](# 作业3 Pipeline and Shading)
+              * [基础要求实现](# normal)
+              * [Bonus](# Bonus1 Other models)
+
+# 参考作业实现
+
 ## 作业0 环境配置
 - OS: Arch Linux x86_64
 - kernel: latest
