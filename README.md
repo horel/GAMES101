@@ -9,11 +9,11 @@ Table of Contents
    * [作业0 环境配置](#作业0-环境配置)
    * [作业1 旋转与投影](#作业1-旋转与投影)
    * [作业2 Triangles and Z-buffering](#作业2-triangles-and-z-buffering)
-      * [Normal](#normal)
+      * [Basic](#Basic)
       * [MSAA 4X](#msaa-4x)
    * [作业3 Pipeline and Shading](#作业3-pipeline-and-shading)
-      * [基础实现](#normal-1)
-      * [Bonus1 Other models](#bonus1-other-models)
+      * [basic](#normal)
+      * [Bonus](#bonus1-other-models)
 
 # 参考作业实现
 
@@ -60,9 +60,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 ## 作业2 Triangles and Z-buffering
 
-### Normal
+### Basic
 
-![](./doc/images/Hw2_normal.png)
+![](./doc/images/Hw2_basic.png)
 
 ### MSAA 4X
 
