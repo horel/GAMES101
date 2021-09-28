@@ -2,21 +2,25 @@
 仅供参考！如果你真的热爱图形学，希望可以自己先尝试写作业！
 直接看代码是收获不到知识的！
 
+# aa
 Table of Contents
 =================
 
-<!--ts-->
-  * [作业目录](# Table of Contents)
-  * [参考作业实现](# 参考作业实现)
-        * [作业0](# 作业0 环境配置)
-        * [作业1](# 作业2 Triangles and Z-buffering)
-        * [作业2](# 作业3 Pipeline and Shading)
-              * [Normal](# Normal)
-              * [MSAA 4X](# MSAA 4X)
-        * [作业3](# 作业3 Pipeline and Shading)
-              * [基础要求实现](# normal)
-              * [Bonus](# Bonus1 Other models)
-<!--te-->
+* [GAMES101 <a href="doc/labels/%E5%9B%BE%E5%BD%A2%E5%AD%A6-GAMES101-blue.svg" target="_blank" rel="noopener noreferrer"><img src="doc/labels/%E5%9B%BE%E5%BD%A2%E5%AD%A6-GAMES101-blue.svg" alt="" style="max-width:100%;"></a> <a href="doc/labels/%E7%8E%B0%E4%BB%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%85%A5%E9%97%A8-%E9%97%AB%E4%BB%A4%E7%90%AA-orange.svg" target="_blank" rel="noopener noreferrer"><img src="doc/labels/%E7%8E%B0%E4%BB%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%85%A5%E9%97%A8-%E9%97%AB%E4%BB%A4%E7%90%AA-orange.svg" alt="" style="max-width:100%;"></a> <a href="doc/labels/linux.svg" target="_blank" rel="noopener noreferrer"><img src="doc/labels/linux.svg" alt="" style="max-width:100%;"></a>](#games101---)
+* [参考作业实现](#参考作业实现)
+   * [作业0 环境配置](#作业0-环境配置)
+   * [作业1 旋转与投影](#作业1-旋转与投影)
+   * [作业2 Triangles and Z-buffering](#作业2-triangles-and-z-buffering)
+      * [Normal](#normal)
+      * [MSAA 4X](#msaa-4x)
+   * [作业3 Pipeline and Shading](#作业3-pipeline-and-shading)
+      * [normal](#normal-1)
+      * [phong](#phong)
+      * [texture](#texture)
+      * [bump](#bump)
+      * [displacement](#displacement)
+      * [Bonus1 Other models](#bonus1-other-models)
+      * [Bonus2 Bilinear](#bonus2-bilinear)
 
 # 参考作业实现
 
