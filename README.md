@@ -5,7 +5,6 @@
 Table of Contents
 =================
 
-* [GAMES101](#GAMES101)
 * [参考作业实现](#参考作业实现)
    * [作业0 环境配置](#作业0-环境配置)
    * [作业1 旋转与投影](#作业1-旋转与投影)
@@ -106,14 +105,14 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 ### Bonus1 Other models
 
-> 详细问题请查看[CheckList](Hw3/README.md)
-
 - bunny
 
 ![](doc/images/Hw3_bunny_normal.png)
 
 <details>
     <summary>点击查看作业3其他材质图片（已折叠）</summary>
+
+> 提高题容易出现问题，具体请查看[CheckList](Hw3/README.md)
 
 - Crate
 
