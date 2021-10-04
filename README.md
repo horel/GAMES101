@@ -110,8 +110,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ![](doc/images/Hw3_bunny_normal.png)
 
 <details>
-    <summary>点击查看作业3其他材质图片（已折叠）</summary>
+    <summary>点击查看作业3其他Bonus图片（已折叠）</summary>
 
+<br/>
 > 提高题容易出现问题，具体请查看[CheckList](Hw3/README.md)
 
 - Crate
