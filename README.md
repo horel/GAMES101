@@ -112,7 +112,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 <details>
     <summary>点击查看作业3其他Bonus图片（已折叠）</summary>
 
-<br/>
+> 特别注意：
 > 提高题容易出现问题，具体请查看[CheckList](Hw3/README.md)
 
 - Crate
