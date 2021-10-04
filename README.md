@@ -106,32 +106,40 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 - bunny
 
-![](Hw3/images/bunny_normal.png)
+![](doc/images/Hw3_bunny_normal.png)
 
 <details>
     <summary>点击查看作业3其他材质图片（已折叠）</summary>
 
 - Crate
 
-![](Hw3/images/crate_texture.png)
+![](doc/images/Hw3_crate_texture.png)
 
 - cube
 
-![](Hw3/images/cube_texture.png)
+![](doc/images/Hw3_cube_texture.png)
 
 - rock
 
-![](Hw3/images/rock_texture.png)
+![](doc/images/Hw3_rock_texture.png)
 
 - Mobius[彩蛋]
 
-![](Hw3/images/Mobius.png)
+![](doc/images/Hw3_Mobius.png)
 
 > 梅比乌斯。贴图有很多张，框架里texture应该只能读一张，就只渲染了normal
 
 ### Bonus2 Bilinear
 
-![](Hw3/images/spot_texture_bilinear.png)
+![](doc/images/Hw3_spot_texture_bilinear.png)
 
 </details>
+
+## 作业4 Bézier 曲线
+
+### Basic
+
+![](doc/images/Hw4_Bezier_Curve_4.png)
+
+### Bonus Antialiasing
 
