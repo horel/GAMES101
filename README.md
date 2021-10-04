@@ -12,7 +12,7 @@ Table of Contents
       * [Basic](#Basic)
       * [MSAA 4X](#msaa-4x)
    * [作业3 Pipeline and Shading](#作业3-pipeline-and-shading)
-      * [Basic](#normal)
+      * [Basic](#texture)
       * [Bonus](#bonus1-other-models)
 
 # 参考作业实现
@@ -75,6 +75,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 ## 作业3 Pipeline and Shading
 
+### texture
+
+![](doc/images/Hw3_texture.png)
+
+<details>
+    <summary>点击查看作业3其他材质图片（已折叠）</summary>
+
 ### normal
 
 ![](doc/images/Hw3_normal.png)
@@ -82,14 +89,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ### phong
 
 ![](doc/images/Hw3_phong.png)
-
-<details>
-    <summary>点击查看其他材质图片</summary>
-
-
-### texture
-
-![](doc/images/Hw3_texture.png)
 
 ### bump
 
@@ -99,6 +98,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 ![](doc/images/Hw3_displacement.png)
 
+</details>
+
 ### Bonus1 Other models
 
 > 详细问题请查看[CheckList](Hw3/README.md)
@@ -106,6 +107,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 - bunny
 
 ![](Hw3/images/bunny_normal.png)
+
+<details>
+    <summary>点击查看作业3其他材质图片（已折叠）</summary>
 
 - Crate
 
@@ -130,3 +134,4 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ![](Hw3/images/spot_texture_bilinear.png)
 
 </details>
+
