@@ -14,6 +14,9 @@ Table of Contents
    * [作业3 Pipeline and Shading](#作业3-pipeline-and-shading)
       * [Basic](#texture)
       * [Bonus](#bonus1-other-models)
+   * [作业4 Bézier 曲线](#作业4 Bézier 曲线)
+      * [Basic](#Basic-1)
+      * [Bonus](#Bonus-Antialiasing)
 
 # 参考作业实现
 
