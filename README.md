@@ -105,6 +105,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 ### Bonus1 Other models
 
+> 特别注意：
+> 提高题容易出现问题，具体请查看[CheckList](Hw3/README.md)
+
 - bunny
 
 ![](doc/images/Hw3_bunny_normal.png)
@@ -129,10 +132,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ![](doc/images/Hw3_Mobius.png)
 
 > 梅比乌斯。贴图有很多张，框架里texture应该只能读一张，就只渲染了normal
-
-> 作业3特别注意：
-> 提高题容易出现问题，具体请查看[CheckList](Hw3/README.md)
-
 
 ### Bonus2 Bilinear
 
