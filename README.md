@@ -112,9 +112,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 <details>
     <summary>点击查看作业3其他Bonus图片（已折叠）</summary>
 
-> 特别注意：
-> 提高题容易出现问题，具体请查看[CheckList](Hw3/README.md)
-
 - Crate
 
 ![](doc/images/Hw3_crate_texture.png)
@@ -132,6 +129,10 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ![](doc/images/Hw3_Mobius.png)
 
 > 梅比乌斯。贴图有很多张，框架里texture应该只能读一张，就只渲染了normal
+
+> 作业3特别注意：
+> 提高题容易出现问题，具体请查看[CheckList](Hw3/README.md)
+
 
 ### Bonus2 Bilinear
 
