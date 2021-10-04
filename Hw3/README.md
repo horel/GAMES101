@@ -37,3 +37,6 @@ Checklist
 
 > 梅比乌斯。贴图有很多张，框架里texture应该只能读一张，就只渲染了normal
 
+## Bonus 2
+
+![](images/spot_texture_bilinear.png)

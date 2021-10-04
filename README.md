@@ -83,6 +83,10 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 ![](doc/images/Hw3_phong.png)
 
+<details>
+    <summary>点击查看其他材质图片</summary>
+
+
 ### texture
 
 ![](doc/images/Hw3_texture.png)
@@ -122,3 +126,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 > 梅比乌斯。贴图有很多张，框架里texture应该只能读一张，就只渲染了normal
 
 ### Bonus2 Bilinear
+
+![](Hw3/images/spot_texture_bilinear.png)
+
+</details>
