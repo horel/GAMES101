@@ -1,4 +1,5 @@
 #include <chrono>
+#include <cmath>
 #include <iostream>
 #include <opencv2/core/matx.hpp>
 #include <opencv2/core/types.hpp>
@@ -68,6 +69,38 @@ void bezier(const std::vector<cv::Point2f> &control_points, cv::Mat &window)
     for(float t = 0.0f; t <= 1.0f; t += t_step) {
         point = recursive_bezier(control_points, t);
         window.at<cv::Vec3b>(point.y, point.x)[1] = 255;
+
+        // anti-aliasing
+        // 判断采样点与像素的位置关系(注意opencv的坐标轴y是向下的)
+        // (x, y)是采样点与所在像素左上角坐标的距离
+        float x_len = point.x - std::floor(point.x);
+        float y_len = point.y - std::floor(point.y);
+        // x_len小于0.5则采样点靠所在像素左侧
+        // y_len小于0.5则采样点靠所在像素上侧，可以由flag找到最靠近采样点的其他三个像素
+        float x_flag = x_len < 0.5f ? -1.0f : 1.0f;
+        float y_flag = y_len < 0.5f ? -1.0f : 1.0f;
+
+        cv::Point2f p0 = cv::Point2f(std::floor(point.x) + 0.5f, std::floor(point.y) + 0.5f);
+        cv::Point2f p1 = cv::Point2f(std::floor(point.x) + 0.5f + x_flag, std::floor(point.y) + 0.5f);
+        cv::Point2f p2 = cv::Point2f(std::floor(point.x) + 0.5f, std::floor(point.y) + 0.5f + y_flag);
+        cv::Point2f p3 = cv::Point2f(std::floor(point.x) + 0.5f + y_flag, std::floor(point.y) + 0.5f + y_flag);
+
+        std::vector<cv::Point2f> vec;
+        vec.push_back(p1);
+        vec.push_back(p2);
+        vec.push_back(p3);
+
+        // p0是采样点所在像素，最近的距离
+        cv::Point2f min_dis_point = p0 - point;
+        float min_distance = sqrt(min_dis_point.x * min_dis_point.x + min_dis_point.y * min_dis_point.y);
+
+        // 求其他三点与采样点的距离，由距离插值
+        for(auto p : vec) {
+            cv::Point2f dis_point = p - point;
+            float distance = sqrt(dis_point.x * dis_point.x + dis_point.y * dis_point.y);
+            float percent = min_distance / distance;
+            window.at<cv::Vec3b>(p.y, p.x)[1] = 255 * percent;
+        }
     }
 }
 

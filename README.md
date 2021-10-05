@@ -147,3 +147,4 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 ### Bonus Antialiasing
 
+![](doc/images/Hw4_Bezier_Curve_Antialiasing.png)
