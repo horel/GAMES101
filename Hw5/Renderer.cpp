@@ -223,14 +223,49 @@ void Renderer::Render(const Scene& scene)
         for (int i = 0; i < scene.width; ++i)
         {
             // generate primary ray direction
-            float x;
-            float y;
+            //float x;
+            //float y;
             // TODO: Find the x and y positions of the current pixel to get the direction
             // vector that passes through it.
             // Also, don't forget to multiply both of them with the variable *scale*, and
-            // x (horizontal) variable with the *imageAspectRatio*            
+            // x (horizontal) variable with the *imageAspectRatio*
+
+            // TODO: Find the x and y positions of the current pixel to get the direction vector that passes through it.
+            // 算出一个像素的光线传播方向，然后归一化到【-1，1】，渲染场景默认是【-1，1】
+            // 从屏幕空间转换到NDC空间，即MVP变换之后，还未进行视口变换
+            float x = (float) (i + 0.5f) * 2 / scene.width - 1.0f; // 先缩放，再平移回去
+            float y = (float) (j + 0.5f) * 2 / scene.height - 1.0f;
+
+            // Also, don't forget to multiply both of them with the variable *scale*, and
+            // x (horizontal) variable with the *imageAspectRatio*
+
+            // 从NDC空间转换到世界空间, 做透视投影的逆操作
+            // Project matrix 透视变换的矩阵:
+            /*
+            *   [ n/r ,0   ,0       ,0      ]
+            *   [ 0   ,n/t ,0       ,0      ]
+            *   [ 0   ,0   ,n+f/n-f ,2nf/f-n]
+            *   [ 0   ,0   ,1       ,0      ]
+            */
+            //
+            // 在投影矩阵中 x 的系数为 n/r
+            // 在投影矩阵中 y 的系数为 n/t
+            // 现在要做一个逆操作，所以我们用 NDC空间的坐标分别除以投影矩阵中的系数
+            // x = nx / n / r
+            // y = ny / n / t
+            // 其中 n(相机到近投影面距离 -z = 1)默认情况下为1, 由此可推出
+            // =>
+            // x = nx * r
+            // y = ny * t
+            // 其中 r = tan(fov/2) * |n| * aspect , t=tan(fov/2) * |n| , |n| = 1
+            // 所以可得,世界空间中坐标为
+            // x = nx * tan(fov/2) * aspect
+            // y = ny * tan(fov/2)
+            x = x * scale * imageAspectRatio;
+            y = -y * scale;
 
             Vector3f dir = Vector3f(x, y, -1); // Don't forget to normalize this direction!
+            dir = normalize(dir);
             framebuffer[m++] = castRay(eye_pos, dir, scene, 0);
         }
         UpdateProgress(j / (float)scene.height);
@@ -246,5 +281,5 @@ void Renderer::Render(const Scene& scene)
         color[2] = (char)(255 * clamp(0, 1, framebuffer[i].z));
         fwrite(color, 1, 3, fp);
     }
-    fclose(fp);    
+    fclose(fp);
 }

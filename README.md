@@ -17,6 +17,7 @@ Table of Contents
    * [作业4 Bézier 曲线](#作业4-Bézier-曲线)
       * [Basic](#Basic-1)
       * [Bonus](#Bonus-Antialiasing)
+   * [作业5 光线追踪-光线与三角形相交](#作业5-光线追踪-光线与三角形相交)
 
 # 参考作业实现
 
@@ -148,3 +149,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ### Bonus Antialiasing
 
 ![](doc/images/Hw4_Bezier_Curve_Antialiasing.png)
+
+## 作业5 光线追踪-光线与三角形相交
+
+![](doc/images/Hw5.png)
+
+## 作业6 光线追踪-加速结构
