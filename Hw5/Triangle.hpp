@@ -23,7 +23,8 @@ bool rayTriangleIntersect(const Vector3f& v0, const Vector3f& v1, const Vector3f
     u = 1.0f / k * dotProduct(S1, S);
     v = 1.0f / k * dotProduct(S2, dir);
 
-    if(tnear > 0 && u > 0 && v > 0 && (1 - u - v) > 0) return true;
+    // __FLT_EPSILON__作为float趋近于0的最小判断
+    if(tnear > 0 && u >= 0 && v >= 0 && (1 - u - v) >= -__FLT_EPSILON__) return true;
     return false;
 }
 
